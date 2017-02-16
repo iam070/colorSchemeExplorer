@@ -51,11 +51,11 @@
 "=============================================================================
 
 " Define function once only
-if exists('loaded_csExplorer') || &cp
+if exists('g:loaded_csExplorer') || &cp
   finish
 endif
 
-let loaded_csExplorer = 1
+let g:loaded_csExplorer = 1
 
 " Create commands
 if !exists(":ColorSchemeExplorer")
@@ -67,7 +67,7 @@ function! <SID>ColorSchemeExplorer()
   let s:color_file_list = globpath(&runtimepath, 'colors/*.vim')
   let s:color_file_list = substitute(s:color_file_list, '\', '/', 'g')
 
-  exe "silent bot ".10."new "."Color Explorer"
+  exe "silent bot ".10."new ColorSchemeExplorer"
 
   setlocal bufhidden=delete
   setlocal buftype=nofile
@@ -96,7 +96,24 @@ function! <SID>SelectScheme()
 
   call <SID>Reset()
 
-  execute "source" getline('.')
+  " execute "source" getline('.')
+  let cs_vim=getline('.')
+  let idx = strridx(cs_vim, "/")
+  if idx == -1
+      echo "idx of / is -1"
+      return
+  endif
+
+  let filename = strpart(cs_vim, idx+1)
+  let idx_dot = strridx(filename, ".vim")
+  if idx_dot == -1
+      echo ".vim idx is -1"
+      return
+  endif
+  let csc = strpart(filename, 0, idx_dot)
+  echo "colorscheme name is " csc
+  exec "colorscheme ".csc
+
 endfunction
 
 " Reset {{{1
