@@ -14,7 +14,9 @@ This plugin can also be found at http://www.vim.org/scripts/script.php?script_id
 Changelog
 =========
 1) use global value g:loaded_csExplorer
+
 2) replace the window name with "ColorSchemeExplorer" to avoid error
+
 3) use ":colorscheme xxx" command to load the colorscheme, because ":source xxx.vim" do not work properly
 
 License
